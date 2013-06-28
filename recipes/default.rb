@@ -6,16 +6,7 @@ bash "Add PPA to sources" do
     " >> /etc/apt/sources.list
     apt-get update
   }
-end
-
-bash "Add PPA to sources" do
-  user "root"
-  code %Q{
-    echo "deb http://ppa.launchpad.net/synack/tablesnap/ubuntu precise main 
-    deb-src http://ppa.launchpad.net/synack/tablesnap/ubuntu precise main
-    " >> /etc/apt/sources.list
-    apt-get update
-  }
+  not_if { File.readlines("/etc/apt/sources.list").grep(/synack\/tablesnap\/ubuntu/).any? }
 end
 
 package "daemon" do
