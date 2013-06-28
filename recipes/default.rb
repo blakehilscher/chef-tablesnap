@@ -18,6 +18,16 @@ bash "Add PPA to sources" do
   }
 end
 
+package "daemon" do
+  action :install
+  options("--force-yes")
+end
+
+package "tablesnap" do
+  action :install
+  options("--force-yes")
+end
+
 template "/etc/default/tablesnap" do
   source "default.erb"
   owner 'root'
@@ -42,11 +52,6 @@ end
 bash "Ensure logfile is present" do
   user "root"
   code "touch #{node.tablesnap.logdir}/tablesnap.log"
-end
-
-package "tablesnap" do
-  action :install
-  options("--force-yes")
 end
 
 bash "Restart" do
