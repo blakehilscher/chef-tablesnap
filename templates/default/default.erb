@@ -1,0 +1,32 @@
+<%
+options = {
+  '--aws-key'           => :aws_key,
+  '--aws-secret'        => :aws_secret,
+  '--recursive'         => :recursive,
+  '--auto-add'          => :auto_add,
+  '--backup'            => :backup,
+  '--prefix'            => :prefix,
+  '--without-index'     => :without_index,
+  '--threads'           => :threads,
+  '--name'                  => :name,
+  '--exclude'               => :exclude,
+  '--include'               => :include,
+  '--max-upload-size'       => :max_upload_size,
+  '--multipart-chunk-size'  => :multipart_chunk_size,
+}
+
+tablesnap_options = options.collect do |param, key|
+  if node.tablesnap[key] == true
+    param
+  elsif node.tablesnap[key].is_a?(Integer) || ( node.tablesnap[key].is_a?(String) && !node.tablesnap[key].empty? )
+    "#{param} #{node.tablesnap[key]}"
+  else
+    nil
+  end
+end
+
+tablesnap_options = tablesnap_options.compact.join(' ')
+
+%>
+
+DAEMON_OPTS="<%= tablesnap_options %> <%= node.tablesnap.s3_bucket %> <%= node.tablesnap.data_dir %>"
