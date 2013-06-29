@@ -3,3 +3,4 @@
   name = node.name if node.tablesnap.use_node_name
 %>
 tableslurp --aws-key <%= node.tablesnap.aws_key %> --aws-secret <%= node.tablesnap.aws_secret %> --owner <%= node.tableslurp.owner %> --group <%= node.tableslurp.group %> --name <%= name %> <%= node.tablesnap.s3_bucket %> <%= node.tablesnap.data_dir %>/$1 <%= node.tablesnap.data_dir %>/$1
+chown -R cassandra:cassandra <%= node.tablesnap.data_dir %>/$1
