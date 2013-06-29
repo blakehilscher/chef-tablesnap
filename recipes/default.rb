@@ -33,6 +33,27 @@ template "/etc/init.d/tablesnap" do
   mode  0755
 end
 
+directory '/etc/tablesnap/' do
+  owner 'root'
+  group 'root'
+  mode 0644
+  action :create
+end
+
+template '/usr/bin/tablerestore' do
+  source "tablerestore.erb"
+  owner 'root'
+  group 'root'
+  mode  0755
+end
+
+template '/usr/bin/tableslurp' do
+  source "tableslurp.py"
+  owner 'root'
+  group 'root'
+  mode  0755
+end
+
 directory node.tablesnap.logdir do
   owner 'root'
   group 'root'

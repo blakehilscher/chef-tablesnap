@@ -18,3 +18,6 @@ default[:tablesnap][:exclude] = ''                  # Exclude files matching thi
 default[:tablesnap][:include] = ''                  # Include files matching this regular expression.
 default[:tablesnap][:max_upload_size] = 5120        # Max size for files to be uploaded before doing multipart
 default[:tablesnap][:multipart_chunk_size] = 256    # Chunk size for multipart uploads (default: 256M or 10% of free memory if default is not available)
+
+default[:tableslurp][:owner] = 'cassandra'
+default[:tableslurp][:group] = 'cassandra'
