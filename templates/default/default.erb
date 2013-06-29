@@ -1,4 +1,5 @@
 <%
+
 options = {
   '--aws-key'           => :aws_key,
   '--aws-secret'        => :aws_secret,
@@ -14,19 +15,20 @@ options = {
   '--max-upload-size'       => :max_upload_size,
   '--multipart-chunk-size'  => :multipart_chunk_size,
 }
-
-tablesnap_options = options.collect do |param, key|
+#node.name
+args = {}
+options.each do |param, key|
   if node.tablesnap[key] == true
-    param
+    args[param] = nil
   elsif node.tablesnap[key].is_a?(Integer) || ( node.tablesnap[key].is_a?(String) && !node.tablesnap[key].empty? )
-    "#{param} #{node.tablesnap[key]}"
-  else
-    nil
+    args[param] = node.tablesnap[key]
   end
 end
-
-tablesnap_options = tablesnap_options.compact.join(' ')
+# special cases
+args['--name'] = node.name if node.tablesnap.use_node_name
+# create string
+args = args.collect{|k,v| [k,v].compact.join(' ') }.join(' ')
 
 %>
 
-DAEMON_OPTS="<%= tablesnap_options %> <%= node.tablesnap.s3_bucket %> <%= node.tablesnap.data_dir %>"
+DAEMON_OPTS="<%= args %> <%= node.tablesnap.s3_bucket %> <%= node.tablesnap.data_dir %>"

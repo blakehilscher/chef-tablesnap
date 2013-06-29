@@ -1,8 +1,12 @@
+default[:tablesnap][:use_node_name] = false         # Use the node.name as --name ?
+
 default[:tablesnap][:logdir] = "/var/log/tablesnap"
 default[:tablesnap][:aws_key] = ""
 default[:tablesnap][:aws_secret] = ""
 default[:tablesnap][:s3_bucket] = "cassandra-archive"
 default[:tablesnap][:data_dir] = "/var/lib/cassandra/data/"
+
+
 default[:tablesnap][:recursive] = true              # Recursively watch the given path(s)s for new SSTables
 default[:tablesnap][:auto_add] = false              # Automatically start watching new subdirectories within path(s)
 default[:tablesnap][:backup] = true                 # Backup existing files to S3 if they are not already there
