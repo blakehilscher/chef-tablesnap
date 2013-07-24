@@ -1,3 +1,16 @@
+case node[:platform]
+when "debian", "ubuntu"
+  package "git-core"
+else
+  package "git"
+end
+
+git node.tablesnap.source.root do
+  repository node.tablesnap.source.repository
+  reference node.tablesnap.source.reference
+  action :sync
+end
+
 bash "Add PPA to sources" do
   user "root"
   code %Q{
@@ -33,7 +46,7 @@ template "/etc/init.d/tablesnap" do
   mode  0755
 end
 
-directory '/etc/tablesnap/' do
+directory node.tablesnap.source.root do
   owner 'root'
   group 'root'
   mode 0644
@@ -66,6 +79,16 @@ directory node.tablesnap.logdir do
   group 'root'
   mode 0644
   action :create
+end
+
+bash "link tablechop" do
+  user "root"
+  code "ln -sf #{node.tablesnap.source.root}/tablechop /usr/bin/tablechop"
+end
+
+bash "executable tablechop" do
+  user "root"
+  code "chmod +x /usr/bin/tablechop"
 end
 
 bash "Ensure logfile is present" do

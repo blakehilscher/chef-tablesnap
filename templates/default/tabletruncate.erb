@@ -2,4 +2,4 @@
   name = node.tablesnap.name
   name = node.name if node.tablesnap.use_node_name
 %>
-./tablechop --key <%= node.tablesnap.aws_key %> --secret <%= node.tablesnap.aws_secret %> --name <%= name %> <%= node.tablesnap.s3_bucket %> <%= node.tablesnap.data_dir %>/$1 $2
+tablechop --key <%= node.tablesnap.aws_key %> --secret <%= node.tablesnap.aws_secret %> --name <%= name %> <%= node.tablesnap.s3_bucket %> <%= node.tablesnap.data_dir %>/$1 $2 $3

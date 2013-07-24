@@ -1,5 +1,9 @@
 default[:tablesnap][:use_node_name] = false         # Use the node.name as --name ?
 
+default[:tablesnap][:source][:repository] = "git@github.com:synack/tablesnap.git"
+default[:tablesnap][:source][:root] = "/etc/tablesnap"
+default[:tablesnap][:source][:reference] = "master"
+
 default[:tablesnap][:logdir] = "/var/log/tablesnap"
 default[:tablesnap][:aws_key] = ""
 default[:tablesnap][:aws_secret] = ""
