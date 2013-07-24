@@ -47,6 +47,13 @@ template '/usr/bin/tablerestore' do
   mode  0755
 end
 
+template '/usr/bin/tabletruncate' do
+  source "tabletruncate.erb"
+  owner 'root'
+  group 'root'
+  mode  0755
+end
+
 template '/usr/bin/tableslurp' do
   source "tableslurp.py"
   owner 'root'
